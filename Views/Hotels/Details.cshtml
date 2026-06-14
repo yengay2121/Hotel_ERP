@@ -1,0 +1,163 @@
+@model HotelERP.Models.Hotel
+@{
+    ViewData["Title"] = "Otel Detayları";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <a asp-action="Index" class="btn btn-sm btn-outline-secondary mb-3"><i class="bi bi-arrow-left"></i> Otel Listesine Dön</a>
+        <h1 class="h3 fw-bold text-dark mb-1">@Model.Name</h1>
+        <p class="text-muted mb-0">
+            @for(int i = 0; i < Model.Stars; i++) {
+                <i class="bi bi-star-fill text-warning"></i>
+            }
+            @for(int i = Model.Stars; i < 5; i++) {
+                <i class="bi bi-star text-muted"></i>
+            }
+        </p>
+    </div>
+    <div class="d-flex gap-2">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning text-white fw-semibold"><i class="bi bi-pencil"></i> Düzenle</a>
+        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger"><i class="bi bi-trash"></i> Sil</a>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <!-- Otel Bilgileri Card -->
+    <div class="col-md-5">
+        <div class="card h-100">
+            <div class="card-header bg-white">
+                <h5 class="mb-0 fw-bold"><i class="bi bi-info-circle text-primary"></i> Otel Detayları</h5>
+            </div>
+            <div class="card-body">
+                <div class="detail-item">
+                    <span class="detail-label d-block">Adres</span>
+                    <span class="detail-val">@Model.Address</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label d-block">Telefon</span>
+                    <span class="detail-val"><i class="bi bi-telephone"></i> @Model.Phone</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label d-block">E-posta</span>
+                    <span class="detail-val"><i class="bi bi-envelope"></i> @Model.Email</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label d-block">Açıklama</span>
+                    <span class="detail-val text-muted">@(string.IsNullOrEmpty(Model.Description) ? "Açıklama bulunmuyor." : Model.Description)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tesis Özet İstatistikler -->
+    <div class="col-md-7">
+        <div class="row g-3 h-100">
+            <div class="col-sm-6">
+                <div class="card stat-card primary p-3 h-100 justify-content-center">
+                    <h6 class="text-white-50 text-uppercase fw-semibold mb-1 small">Tanımlı Oda Sayısı</h6>
+                    <span class="fs-1 fw-bold">@Model.Rooms.Count</span>
+                    <div class="mt-2">
+                        <a asp-controller="Rooms" asp-action="Create" class="btn btn-sm btn-light py-1 text-dark fw-semibold"><i class="bi bi-plus-lg"></i> Oda Ekle</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card stat-card info p-3 h-100 justify-content-center">
+                    <h6 class="text-white-50 text-uppercase fw-semibold mb-1 small">Çalışan Personel</h6>
+                    <span class="fs-1 fw-bold">@Model.Employees.Count</span>
+                    <div class="mt-2">
+                        <a asp-controller="Employees" asp-action="Create" class="btn btn-sm btn-light py-1 text-dark fw-semibold"><i class="bi bi-plus-lg"></i> Personel Ekle</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Odalar ve Personeller Sekmeleri -->
+<div class="row g-4">
+    <!-- Odalar Listesi -->
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 fw-bold"><i class="bi bi-door-open text-success"></i> Tesis Odaları</h5>
+                <span class="badge bg-success">@Model.Rooms.Count Oda</span>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0" style="font-size: 0.9rem;">
+                        <thead>
+                            <tr>
+                                <th>Oda No</th>
+                                <th>Oda Tipi</th>
+                                <th>Gecelik Fiyat</th>
+                                <th>Durum</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if(!Model.Rooms.Any()) {
+                                <tr>
+                                    <td colspan="4" class="text-center text-muted py-3">Bu otele ait tanımlı oda bulunmuyor.</td>
+                                </tr>
+                            } else {
+                                @foreach(var room in Model.Rooms) {
+                                    <tr>
+                                        <td class="fw-bold">@room.RoomNumber</td>
+                                        <td>@room.RoomType</td>
+                                        <td>@room.PricePerNight.ToString("N2") TL</td>
+                                        <td>
+                                            @if(room.IsAvailable) {
+                                                <span class="badge bg-success">Müsait</span>
+                                            } else {
+                                                <span class="badge bg-danger">Dolu / Rezerve</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Personeller Listesi -->
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 fw-bold"><i class="bi bi-person-badge text-info"></i> Tesis Personeli</h5>
+                <span class="badge bg-info text-dark">@Model.Employees.Count Personel</span>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0" style="font-size: 0.9rem;">
+                        <thead>
+                            <tr>
+                                <th>Ad Soyad</th>
+                                <th>Pozisyon</th>
+                                <th>Maaş</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if(!Model.Employees.Any()) {
+                                <tr>
+                                    <td colspan="3" class="text-center text-muted py-3">Bu otele ait çalışan personel bulunmuyor.</td>
+                                </tr>
+                            } else {
+                                @foreach(var emp in Model.Employees) {
+                                    <tr>
+                                        <td class="fw-bold">@emp.FirstName @emp.LastName</td>
+                                        <td>@emp.Position</td>
+                                        <td>@emp.Salary.ToString("N2") TL</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

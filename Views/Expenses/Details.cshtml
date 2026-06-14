@@ -1,0 +1,29 @@
+@model HotelERP.Models.Expense
+@{ ViewData["Title"] = "Details - Expense"; }
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0 fw-bold">Expense Detayları</h5>
+            </div>
+            <div class="card-body">
+                <dl class="row mb-0">
+        <dt class="col-sm-4">Hotel</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Hotel.Name)</dd>
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Description)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Description)</dd>
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Amount)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Amount)</dd>
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.ExpenseDate)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.ExpenseDate)</dd>
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Category)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Category)</dd>
+                </dl>
+            </div>
+            <div class="card-footer bg-white py-3">
+                <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Düzenle</a>
+                <a asp-action="Index" class="btn btn-light ms-2">Listeye Dön</a>
+            </div>
+        </div>
+    </div>
+</div>

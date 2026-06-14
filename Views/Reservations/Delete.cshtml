@@ -1,0 +1,50 @@
+@model HotelERP.Models.Reservation
+@{
+    ViewData["Title"] = "Rezervasyonu İptal Et/Sil";
+}
+
+<div class="row mb-4">
+    <div class="col-md-6 mx-auto">
+        <a asp-action="Index" class="btn btn-sm btn-outline-secondary mb-3"><i class="bi bi-arrow-left"></i> Geri Dön</a>
+        <h1 class="h3 fw-bold text-dark"><i class="bi bi-exclamation-triangle-fill text-danger"></i> Rezervasyonu Sil</h1>
+        <p class="text-muted">Aşağıdaki rezervasyon kaydını sistemden silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card border border-danger">
+            <div class="card-body p-4">
+                <h4 class="fw-bold text-danger mb-3">Rezervasyon #@Model.Id</h4>
+                
+                <div class="detail-item">
+                    <span class="detail-label d-block">Müşteri</span>
+                    <span class="detail-val">@Model.Customer?.FirstName @Model.Customer?.LastName</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label d-block">Oda</span>
+                    <span class="detail-val">@Model.Room?.Hotel?.Name - Oda @Model.Room?.RoomNumber</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label d-block">Tarih</span>
+                    <span class="detail-val">@Model.CheckInDate.ToShortDateString() - @Model.CheckOutDate.ToShortDateString()</span>
+                </div>
+                <div class="detail-item mb-4">
+                    <span class="detail-label d-block">Toplam Tutar</span>
+                    <span class="detail-val fw-bold text-danger">@Model.TotalPrice.ToString("N2") TL</span>
+                </div>
+
+                <div class="alert alert-warning mb-4" role="alert">
+                    <i class="bi bi-exclamation-circle-fill me-1"></i>
+                    <strong>ERP Uyarısı:</strong> Rezervasyon silindiğinde, rezerve edilmiş oda otomatik olarak tekrar **Müsait** duruma geçirilecektir. Ayrıca rezervasyona bağlı tüm ödeme kayıtları da silinecektir!
+                </div>
+
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+                    <button type="submit" class="btn btn-danger px-4 fw-semibold">Evet, Sil</button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">İptal</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

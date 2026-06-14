@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Grand Otel ERP</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/HotelERP.styles.css" asp-append-version="true" />
+</head>
+<body class="bg-light">
+
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="bg-dark text-white shadow-lg" id="sidebar-wrapper" style="width: 280px; min-height: 100vh; position: fixed; z-index: 1000; overflow-y: auto;">
+            <div class="sidebar-heading px-4 py-4 d-flex align-items-center gap-2 border-bottom border-secondary">
+                <i class="bi bi-buildings-fill text-warning fs-3"></i>
+                <span class="fw-bold tracking-wide fs-5">Grand<span class="text-warning"> ERP</span></span>
+            </div>
+            
+            <div class="list-group list-group-flush mt-3 px-2">
+                <small class="text-secondary text-uppercase fw-bold px-3 mb-2" style="font-size: 0.75rem; letter-spacing: 1px;">Ana Menü</small>
+                <a asp-controller="Home" asp-action="Index" class="list-group-item list-group-item-action bg-transparent text-light border-0 mb-1 rounded d-flex align-items-center gap-3 py-2">
+                    <i class="bi bi-grid-1x2-fill fs-5 opacity-75"></i> Dashboard
+                </a>
+
+                <small class="text-secondary text-uppercase fw-bold px-3 mt-3 mb-2" style="font-size: 0.75rem; letter-spacing: 1px;">Operasyon</small>
+                <a asp-controller="Hotels" asp-action="Index" class="list-group-item list-group-item-action bg-transparent text-light border-0 mb-1 rounded d-flex align-items-center gap-3 py-2">
+                    <i class="bi bi-building fs-5 opacity-75"></i> Hotels
+                </a>
+                <a asp-controller="Rooms" asp-action="Index" class="list-group-item list-group-item-action bg-transparent text-light border-0 mb-1 rounded d-flex align-items-center gap-3 py-2">
+                    <i class="bi bi-door-open fs-5 opacity-75"></i> Rooms
+                </a>
+                <a asp-controller="Reservations" asp-action="Index" class="list-group-item list-group-item-action bg-transparent text-light border-0 mb-1 rounded d-flex align-items-center gap-3 py-2">
+                    <i class="bi bi-calendar-check fs-5 opacity-75"></i> Reservations
+                </a>
+
+                <small class="text-secondary text-uppercase fw-bold px-3 mt-3 mb-2" style="font-size: 0.75rem; letter-spacing: 1px;">İlişkiler & İK</small>
+                <a asp-controller="Customers" asp-action="Index" class="list-group-item list-group-item-action bg-transparent text-light border-0 mb-1 rounded d-flex align-items-center gap-3 py-2">
+                    <i class="bi bi-people fs-5 opacity-75"></i> Customers
+                </a>
+                <a asp-controller="Employees" asp-action="Index" class="list-group-item list-group-item-action bg-transparent text-light border-0 mb-1 rounded d-flex align-items-center gap-3 py-2">
+                    <i class="bi bi-person-badge fs-5 opacity-75"></i> Employees
+                </a>
+
+                <small class="text-secondary text-uppercase fw-bold px-3 mt-3 mb-2" style="font-size: 0.75rem; letter-spacing: 1px;">Tedarik Zinciri</small>
+                <a asp-controller="InventoryItems" asp-action="Index" class="list-group-item list-group-item-action bg-transparent text-light border-0 mb-1 rounded d-flex align-items-center gap-3 py-2">
+                    <i class="bi bi-box-seam fs-5 opacity-75"></i> Inventory
+                </a>
+                <a asp-controller="Suppliers" asp-action="Index" class="list-group-item list-group-item-action bg-transparent text-light border-0 mb-1 rounded d-flex align-items-center gap-3 py-2">
+                    <i class="bi bi-truck fs-5 opacity-75"></i> Suppliers
+                </a>
+                
+                <small class="text-secondary text-uppercase fw-bold px-3 mt-3 mb-2" style="font-size: 0.75rem; letter-spacing: 1px;">Finans & Rapor</small>
+                <a asp-controller="PurchaseOrders" asp-action="Index" class="list-group-item list-group-item-action bg-transparent text-light border-0 mb-1 rounded d-flex align-items-center gap-3 py-2">
+                    <i class="bi bi-cart3 fs-5 opacity-75"></i> Purchasing
+                </a>
+                <a asp-controller="Payments" asp-action="Index" class="list-group-item list-group-item-action bg-transparent text-light border-0 mb-1 rounded d-flex align-items-center gap-3 py-2">
+                    <i class="bi bi-graph-up-arrow fs-5 opacity-75"></i> Finance
+                </a>
+                <a asp-controller="Home" asp-action="Index" class="list-group-item list-group-item-action bg-transparent text-light border-0 mb-1 rounded d-flex align-items-center gap-3 py-2">
+                    <i class="bi bi-file-earmark-bar-graph fs-5 opacity-75"></i> Reports
+                </a>
+
+                <hr class="border-secondary my-3">
+                <a asp-controller="DatabaseAdmin" asp-action="Index" class="list-group-item list-group-item-action bg-transparent text-warning border-0 mb-1 rounded d-flex align-items-center gap-3 py-2 fw-semibold">
+                    <i class="bi bi-database-fill-gear fs-5"></i> Database Admin
+                </a>
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper" class="w-100 bg-light" style="margin-left: 280px; min-height: 100vh; display: flex; flex-direction: column;">
+            
+            <header class="bg-white shadow-sm py-3 px-4 mb-4 d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 fw-bold text-dark">@ViewData["Title"]</h5>
+                <div class="d-flex align-items-center gap-3">
+                    <span class="badge bg-warning text-dark px-3 py-2 fw-semibold rounded-pill">
+                        <i class="bi bi-shield-lock-fill me-1"></i> Admin
+                    </span>
+                </div>
+            </header>
+
+            <main class="container-fluid px-4 flex-grow-1">
+                @RenderBody()
+            </main>
+
+            <footer class="bg-white py-3 mt-auto text-center border-top">
+                <div class="container-fluid">
+                    <small class="text-muted">&copy; @DateTime.Now.Year - <strong>Grand Otel ERP</strong> - Kurumsal Yönetim Sistemi</small>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

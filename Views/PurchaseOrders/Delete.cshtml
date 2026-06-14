@@ -1,0 +1,33 @@
+@model HotelERP.Models.PurchaseOrder
+@{ ViewData["Title"] = "Delete - PurchaseOrder"; }
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="alert alert-danger shadow-sm border-0">
+            <h5 class="fw-bold"><i class="bi bi-exclamation-triangle-fill"></i> Silme Onayı</h5>
+            <p>Bu kaydı silmek istediğinize emin misiniz? Bu işlem geri alınamaz.</p>
+        </div>
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <dl class="row mb-0">
+        <dt class="col-sm-4">Supplier</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Supplier.CompanyName)</dd>
+        <dt class="col-sm-4">Hotel</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Hotel.Name)</dd>
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.OrderDate)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.OrderDate)</dd>
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.TotalAmount)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.TotalAmount)</dd>
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Status)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Status)</dd>
+                </dl>
+            </div>
+            <div class="card-footer bg-white py-3">
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="submit" value="Sil" class="btn btn-danger px-4" />
+                    <a asp-action="Index" class="btn btn-light ms-2">İptal</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

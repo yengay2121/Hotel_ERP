@@ -1,0 +1,46 @@
+@model HotelERP.Models.Expense
+@{ ViewData["Title"] = "Edit - Expense"; }
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0 fw-bold">Expense Düzenle</h5>
+            </div>
+            <div class="card-body">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+            <div class="form-group mb-3">
+                <label asp-for="HotelId" class="control-label"></label>
+                <select asp-for="HotelId" class="form-control" asp-items="ViewBag.HotelId"></select>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Amount" class="control-label"></label>
+                <input asp-for="Amount" class="form-control" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ExpenseDate" class="control-label"></label>
+                <input asp-for="ExpenseDate" class="form-control" />
+                <span asp-validation-for="ExpenseDate" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Category" class="control-label"></label>
+                <input asp-for="Category" class="form-control" />
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+
+                    <div class="form-group mt-4">
+                        <input type="submit" value="Güncelle" class="btn btn-primary px-4" />
+                        <a asp-action="Index" class="btn btn-light ms-2">Listeye Dön</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

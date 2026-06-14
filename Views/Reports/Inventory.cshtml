@@ -1,0 +1,40 @@
+@model IEnumerable<HotelERP.Models.InventoryItem>
+@{ ViewData["Title"] = "Envanter Raporu"; }
+<h3 class="fw-bold mb-4">Envanter Raporu</h3>
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>SKU</th>
+                        <th>Ürün Adı</th>
+                        <th>Otel</th>
+                        <th>Stok Adedi</th>
+                        <th>Birim Fiyat</th>
+                        <th>Toplam Değer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model) {
+                        var totalValue = item.QuantityInStock * item.UnitPrice;
+                        <tr>
+                            <td>@item.SKU</td>
+                            <td>@item.Name</td>
+                            <td>@item.Hotel.Name</td>
+                            <td>@item.QuantityInStock</td>
+                            <td>₺@item.UnitPrice.ToString("N2")</td>
+                            <td class="fw-bold">₺@totalValue.ToString("N2")</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot class="bg-light fw-bold">
+                    <tr>
+                        <td colspan="5" class="text-end">Toplam Envanter Değeri:</td>
+                        <td>₺@Model.Sum(x => x.QuantityInStock * x.UnitPrice).ToString("N2")</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>

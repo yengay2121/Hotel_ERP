@@ -1,0 +1,46 @@
+@model HotelERP.Models.Employee
+@{
+    ViewData["Title"] = "Personeli Çıkar / Sil";
+}
+
+<div class="row mb-4">
+    <div class="col-md-6 mx-auto">
+        <a asp-action="Index" class="btn btn-sm btn-outline-secondary mb-3"><i class="bi bi-arrow-left"></i> Geri Dön</a>
+        <h1 class="h3 fw-bold text-dark"><i class="bi bi-exclamation-triangle-fill text-danger"></i> Personeli Sil</h1>
+        <p class="text-muted">Aşağıdaki personeli işten çıkarmak/silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card border border-danger">
+            <div class="card-body p-4">
+                <h4 class="fw-bold text-danger mb-3">@Model.FirstName @Model.LastName</h4>
+                
+                <div class="detail-item">
+                    <span class="detail-label d-block">Bulunduğu Otel</span>
+                    <span class="detail-val">@Model.Hotel?.Name</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label d-block">Pozisyon</span>
+                    <span class="detail-val">@Model.Position</span>
+                </div>
+                <div class="detail-item mb-4">
+                    <span class="detail-label d-block">Maaş</span>
+                    <span class="detail-val">@Model.Salary.ToString("N2") TL</span>
+                </div>
+
+                <div class="alert alert-warning mb-4" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill me-1"></i>
+                    <strong>Personel Çıkarma Uyarısı:</strong> Çalışanın iş akdini sonlandırmak ve sistemden silmek üzeresiniz.
+                </div>
+
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+                    <button type="submit" class="btn btn-danger px-4 fw-semibold">Evet, Sil</button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">İptal</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

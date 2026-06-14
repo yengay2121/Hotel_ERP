@@ -1,0 +1,279 @@
+@{
+    ViewData["Title"] = "ERP Dashboard";
+}
+
+<div class="row mb-4 align-items-center">
+    <div class="col">
+        <h2 class="fw-bold text-dark mb-0">Ana Kontrol Paneli</h2>
+        <p class="text-muted mb-0">Grand Otel Kurumsal Kaynak Planlama (ERP) Sistemine Hoş Geldiniz.</p>
+    </div>
+    <div class="col-auto">
+        <div class="d-flex gap-2">
+            <span class="text-muted small"><i class="bi bi-clock"></i> @DateTime.Now.ToString("dd MMMM yyyy")</span>
+        </div>
+    </div>
+</div>
+
+<!-- Key Performance Indicators (9 Metrics) -->
+<div class="row g-3 mb-5">
+    <div class="col-md-4 col-lg-3">
+        <div class="card bg-primary text-white border-0 shadow-sm h-100">
+            <div class="card-body p-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="small text-uppercase fw-semibold opacity-75">Active Reservations</span>
+                    <i class="bi bi-calendar-check fs-4 opacity-50"></i>
+                </div>
+                <h3 class="fw-bold mb-0">@ViewBag.ActiveReservations</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-lg-3">
+        <div class="card bg-info text-white border-0 shadow-sm h-100">
+            <div class="card-body p-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="small text-uppercase fw-semibold opacity-75">Occupied Rooms</span>
+                    <i class="bi bi-door-closed fs-4 opacity-50"></i>
+                </div>
+                <h3 class="fw-bold mb-0">@ViewBag.OccupiedRooms</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-lg-3">
+        <div class="card bg-success text-white border-0 shadow-sm h-100">
+            <div class="card-body p-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="small text-uppercase fw-semibold opacity-75">Available Rooms</span>
+                    <i class="bi bi-door-open fs-4 opacity-50"></i>
+                </div>
+                <h3 class="fw-bold mb-0">@ViewBag.AvailableRooms</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-lg-3">
+        <div class="card bg-warning text-dark border-0 shadow-sm h-100">
+            <div class="card-body p-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="small text-uppercase fw-semibold opacity-75">Monthly Revenue</span>
+                    <i class="bi bi-cash-stack fs-4 opacity-50"></i>
+                </div>
+                <h3 class="fw-bold mb-0">₺@string.Format("{0:N0}", ViewBag.MonthlyRevenue)</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-lg-3">
+        <div class="card bg-danger text-white border-0 shadow-sm h-100">
+            <div class="card-body p-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="small text-uppercase fw-semibold opacity-75">Monthly Expenses</span>
+                    <i class="bi bi-graph-down-arrow fs-4 opacity-50"></i>
+                </div>
+                <h3 class="fw-bold mb-0">₺@string.Format("{0:N0}", ViewBag.MonthlyExpenses)</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-lg-3">
+        <div class="card bg-dark text-white border-0 shadow-sm h-100">
+            <div class="card-body p-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="small text-uppercase fw-semibold opacity-75">Employee Count</span>
+                    <i class="bi bi-people fs-4 opacity-50"></i>
+                </div>
+                <h3 class="fw-bold mb-0">@ViewBag.EmployeeCount</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-lg-3">
+        <div class="card bg-secondary text-white border-0 shadow-sm h-100">
+            <div class="card-body p-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="small text-uppercase fw-semibold opacity-75">Inventory Value</span>
+                    <i class="bi bi-box-seam fs-4 opacity-50"></i>
+                </div>
+                <h3 class="fw-bold mb-0">₺@string.Format("{0:N0}", ViewBag.InventoryValue)</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-lg-3">
+        <div class="card bg-primary bg-gradient text-white border-0 shadow-sm h-100">
+            <div class="card-body p-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="small text-uppercase fw-semibold opacity-75">PO This Month</span>
+                    <i class="bi bi-cart3 fs-4 opacity-50"></i>
+                </div>
+                <h3 class="fw-bold mb-0">@ViewBag.MonthlyPurchaseOrders</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-lg-3">
+        <div class="card bg-success bg-gradient text-white border-0 shadow-sm h-100">
+            <div class="card-body p-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="small text-uppercase fw-semibold opacity-75">Customer Count</span>
+                    <i class="bi bi-person-check fs-4 opacity-50"></i>
+                </div>
+                <h3 class="fw-bold mb-0">@ViewBag.CustomerCount</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h4 class="fw-bold mb-3">ERP Modülleri</h4>
+<div class="row g-4">
+    <!-- Hotel Management -->
+    <div class="col-md-6 col-lg-4 col-xl-3">
+        <a asp-controller="Hotels" asp-action="Index" class="text-decoration-none">
+            <div class="card h-100 shadow-sm border-0 module-card" style="border-radius: 15px; transition: transform 0.2s;">
+                <div class="card-body text-center p-4">
+                    <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                        <i class="bi bi-building fs-3 text-primary"></i>
+                    </div>
+                    <h5 class="fw-bold text-dark">Hotel Management</h5>
+                    <p class="text-muted small mb-0">Tesis ve şube yönetimi</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Room Management -->
+    <div class="col-md-6 col-lg-4 col-xl-3">
+        <a asp-controller="Rooms" asp-action="Index" class="text-decoration-none">
+            <div class="card h-100 shadow-sm border-0 module-card" style="border-radius: 15px; transition: transform 0.2s;">
+                <div class="card-body text-center p-4">
+                    <div class="rounded-circle bg-info bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                        <i class="bi bi-door-open fs-3 text-info"></i>
+                    </div>
+                    <h5 class="fw-bold text-dark">Room Management</h5>
+                    <p class="text-muted small mb-0">Oda tipleri ve fiyatlandırma</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Customer Management -->
+    <div class="col-md-6 col-lg-4 col-xl-3">
+        <a asp-controller="Customers" asp-action="Index" class="text-decoration-none">
+            <div class="card h-100 shadow-sm border-0 module-card" style="border-radius: 15px; transition: transform 0.2s;">
+                <div class="card-body text-center p-4">
+                    <div class="rounded-circle bg-success bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                        <i class="bi bi-people fs-3 text-success"></i>
+                    </div>
+                    <h5 class="fw-bold text-dark">Customer Management</h5>
+                    <p class="text-muted small mb-0">CRM ve müşteri profilleri</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Reservation Management -->
+    <div class="col-md-6 col-lg-4 col-xl-3">
+        <a asp-controller="Reservations" asp-action="Index" class="text-decoration-none">
+            <div class="card h-100 shadow-sm border-0 module-card" style="border-radius: 15px; transition: transform 0.2s;">
+                <div class="card-body text-center p-4">
+                    <div class="rounded-circle bg-warning bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                        <i class="bi bi-calendar-check fs-3 text-warning"></i>
+                    </div>
+                    <h5 class="fw-bold text-dark">Reservation Management</h5>
+                    <p class="text-muted small mb-0">Konaklama ve randevular</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Employee Management -->
+    <div class="col-md-6 col-lg-4 col-xl-3">
+        <a asp-controller="Employees" asp-action="Index" class="text-decoration-none">
+            <div class="card h-100 shadow-sm border-0 module-card" style="border-radius: 15px; transition: transform 0.2s;">
+                <div class="card-body text-center p-4">
+                    <div class="rounded-circle bg-danger bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                        <i class="bi bi-person-badge fs-3 text-danger"></i>
+                    </div>
+                    <h5 class="fw-bold text-dark">Employee Management</h5>
+                    <p class="text-muted small mb-0">İnsan kaynakları ve bordro</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Inventory Management -->
+    <div class="col-md-6 col-lg-4 col-xl-3">
+        <a asp-controller="InventoryItems" asp-action="Index" class="text-decoration-none">
+            <div class="card h-100 shadow-sm border-0 module-card" style="border-radius: 15px; transition: transform 0.2s;">
+                <div class="card-body text-center p-4">
+                    <div class="rounded-circle bg-secondary bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                        <i class="bi bi-box-seam fs-3 text-secondary"></i>
+                    </div>
+                    <h5 class="fw-bold text-dark">Inventory Management</h5>
+                    <p class="text-muted small mb-0">Stok ve depo kontrolü</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Supplier Management -->
+    <div class="col-md-6 col-lg-4 col-xl-3">
+        <a asp-controller="Suppliers" asp-action="Index" class="text-decoration-none">
+            <div class="card h-100 shadow-sm border-0 module-card" style="border-radius: 15px; transition: transform 0.2s;">
+                <div class="card-body text-center p-4">
+                    <div class="rounded-circle bg-dark bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                        <i class="bi bi-truck fs-3 text-dark"></i>
+                    </div>
+                    <h5 class="fw-bold text-dark">Supplier Management</h5>
+                    <p class="text-muted small mb-0">Tedarikçi ilişkileri</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Purchasing Management -->
+    <div class="col-md-6 col-lg-4 col-xl-3">
+        <a asp-controller="PurchaseOrders" asp-action="Index" class="text-decoration-none">
+            <div class="card h-100 shadow-sm border-0 module-card" style="border-radius: 15px; transition: transform 0.2s;">
+                <div class="card-body text-center p-4">
+                    <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                        <i class="bi bi-cart3 fs-3 text-primary"></i>
+                    </div>
+                    <h5 class="fw-bold text-dark">Purchasing Management</h5>
+                    <p class="text-muted small mb-0">Satın alma siparişleri</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Finance & Accounting -->
+    <div class="col-md-6 col-lg-4 col-xl-3">
+        <a asp-controller="Payments" asp-action="Index" class="text-decoration-none">
+            <div class="card h-100 shadow-sm border-0 module-card" style="border-radius: 15px; transition: transform 0.2s;">
+                <div class="card-body text-center p-4">
+                    <div class="rounded-circle bg-success bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                        <i class="bi bi-graph-up-arrow fs-3 text-success"></i>
+                    </div>
+                    <h5 class="fw-bold text-dark">Finance & Accounting</h5>
+                    <p class="text-muted small mb-0">Gelir, gider ve faturalama</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Reports -->
+    <div class="col-md-6 col-lg-4 col-xl-3">
+        <a asp-controller="Reports" asp-action="Index" class="text-decoration-none">
+            <div class="card h-100 shadow-sm border-0 module-card" style="border-radius: 15px; transition: transform 0.2s;">
+                <div class="card-body text-center p-4">
+                    <div class="rounded-circle bg-info bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                        <i class="bi bi-file-earmark-bar-graph fs-3 text-info"></i>
+                    </div>
+                    <h5 class="fw-bold text-dark">Reports</h5>
+                    <p class="text-muted small mb-0">Analiz ve iş zekası</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+</div>
+
+<style>
+    .module-card:hover {
+        transform: translateY(-5px) !important;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+    }
+</style>

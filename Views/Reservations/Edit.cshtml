@@ -1,0 +1,70 @@
+@model HotelERP.Models.Reservation
+@{
+    ViewData["Title"] = "Rezervasyonu Düzenle";
+}
+
+<div class="row mb-4">
+    <div class="col-md-6 mx-auto">
+        <a asp-action="Index" class="btn btn-sm btn-outline-secondary mb-3"><i class="bi bi-arrow-left"></i> Geri Dön</a>
+        <h1 class="h3 fw-bold text-dark"><i class="bi bi-pencil-square text-warning"></i> Rezervasyon Güncelle</h1>
+        <p class="text-muted">Rezervasyon detaylarını (Tarih, Oda, Durum) değiştirebilirsiniz.</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card">
+            <div class="card-body p-4">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    <input type="hidden" asp-for="Id" />
+                    
+                    <div class="mb-3">
+                        <label asp-for="CustomerId" class="form-label">Müşteri Seçin</label>
+                        <select asp-for="CustomerId" class="form-select" asp-items="ViewBag.CustomerId"></select>
+                        <span asp-validation-for="CustomerId" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="RoomId" class="form-label">Oda Seçin</label>
+                        <select asp-for="RoomId" class="form-select" asp-items="ViewBag.RoomId"></select>
+                        <span asp-validation-for="RoomId" class="text-danger small"></span>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label asp-for="CheckInDate" class="form-label"></label>
+                            <input asp-for="CheckInDate" class="form-control" type="date" value="@Model.CheckInDate.ToString("yyyy-MM-dd")" />
+                            <span asp-validation-for="CheckInDate" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="CheckOutDate" class="form-label"></label>
+                            <input asp-for="CheckOutDate" class="form-control" type="date" value="@Model.CheckOutDate.ToString("yyyy-MM-dd")" />
+                            <span asp-validation-for="CheckOutDate" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Status" class="form-label"></label>
+                        <select asp-for="Status" class="form-select" asp-items="Html.GetEnumSelectList<HotelERP.Models.ReservationStatus>()"></select>
+                        <span asp-validation-for="Status" class="text-danger small"></span>
+                    </div>
+
+                    <div class="alert alert-warning py-2 mb-4" role="alert">
+                        <i class="bi bi-exclamation-circle-fill me-1"></i>
+                        <strong>Fiyat Güncellemesi:</strong> Kayıt güncellendiğinde toplam tutar ve oda müsaitlik durumları ERP mantığına uygun şekilde yeniden hesaplanacaktır.
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-warning px-4 text-white fw-semibold">Güncelle</button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">İptal</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

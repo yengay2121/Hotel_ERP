@@ -1,0 +1,60 @@
+@model IEnumerable<HotelERP.Models.Employee>
+@{
+    ViewData["Title"] = "Personel Listesi";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h3 fw-bold text-dark mb-1"><i class="bi bi-person-badge text-warning"></i> Personel Yönetimi</h1>
+        <p class="text-muted mb-0">Otellerinizde görevli personelleri listeleyin, pozisyonlarını ve maaşlarını yönetin.</p>
+    </div>
+    <a asp-action="Create" class="btn btn-primary d-flex align-items-center gap-2">
+        <i class="bi bi-plus-lg"></i> Yeni Personel İşe Al
+    </a>
+</div>
+
+<div class="card">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>Adı Soyadı</th>
+                        <th>Çalıştığı Otel</th>
+                        <th>Pozisyon</th>
+                        <th>Maaş</th>
+                        <th>İşe Giriş</th>
+                        <th>İletişim</th>
+                        <th class="text-end">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model) {
+                        <tr>
+                            <td class="fw-bold text-dark">
+                                <a asp-action="Details" asp-route-id="@item.Id" class="text-decoration-none text-dark">@item.FirstName @item.LastName</a>
+                            </td>
+                            <td>@item.Hotel?.Name</td>
+                            <td>
+                                <span class="badge bg-secondary">@item.Position</span>
+                            </td>
+                            <td class="fw-semibold">@item.Salary.ToString("N2") TL</td>
+                            <td>@item.HireDate.ToShortDateString()</td>
+                            <td>
+                                <div><i class="bi bi-telephone text-muted"></i> @item.Phone</div>
+                                <div><i class="bi bi-envelope text-muted"></i> @item.Email</div>
+                            </td>
+                            <td class="text-end">
+                                <div class="btn-group btn-group-sm">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-secondary" title="Düzenle"><i class="bi bi-pencil"></i></a>
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info text-dark" title="Detaylar"><i class="bi bi-eye"></i></a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger" title="Sil"><i class="bi bi-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

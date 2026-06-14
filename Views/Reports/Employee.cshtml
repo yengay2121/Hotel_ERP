@@ -1,0 +1,33 @@
+@model IEnumerable<HotelERP.Models.Employee>
+@{ ViewData["Title"] = "Personel Raporu"; }
+<h3 class="fw-bold mb-4">Personel Raporu</h3>
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Ad Soyad</th>
+                        <th>Otel</th>
+                        <th>Departman</th>
+                        <th>Pozisyon</th>
+                        <th>Maaş</th>
+                        <th>İşe Giriş</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model) {
+                        <tr>
+                            <td>@item.FullName</td>
+                            <td>@item.Hotel.Name</td>
+                            <td>@item.Department.Name</td>
+                            <td>@item.Position</td>
+                            <td>₺@item.Salary.ToString("N2")</td>
+                            <td>@item.HireDate.ToString("dd.MM.yyyy")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

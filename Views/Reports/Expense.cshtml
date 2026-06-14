@@ -1,0 +1,37 @@
+@model IEnumerable<HotelERP.Models.Expense>
+@{ ViewData["Title"] = "Gider Raporu"; }
+<h3 class="fw-bold mb-4">Gider Raporu</h3>
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Tarih</th>
+                        <th>Otel</th>
+                        <th>Kategori</th>
+                        <th>Açıklama</th>
+                        <th>Tutar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model) {
+                        <tr>
+                            <td>@item.ExpenseDate.ToString("dd.MM.yyyy")</td>
+                            <td>@item.Hotel.Name</td>
+                            <td>@item.Category</td>
+                            <td>@item.Description</td>
+                            <td class="text-danger fw-bold">₺@item.Amount.ToString("N2")</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot class="bg-light fw-bold">
+                    <tr>
+                        <td colspan="4" class="text-end">Toplam Gider:</td>
+                        <td class="text-danger">₺@Model.Sum(x => x.Amount).ToString("N2")</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>

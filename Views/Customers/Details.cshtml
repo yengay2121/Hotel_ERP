@@ -1,0 +1,105 @@
+@model HotelERP.Models.Customer
+@{
+    ViewData["Title"] = "Müşteri Detayları";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <a asp-action="Index" class="btn btn-sm btn-outline-secondary mb-3"><i class="bi bi-arrow-left"></i> Müşteri Listesine Dön</a>
+        <h1 class="h3 fw-bold text-dark mb-1">@Model.FirstName @Model.LastName</h1>
+        <p class="text-muted mb-0">Müşteri Kayıt Detayları ve Rezervasyon Geçmişi</p>
+    </div>
+    <div class="d-flex gap-2">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning text-white fw-semibold"><i class="bi bi-pencil"></i> Düzenle</a>
+        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger"><i class="bi bi-trash"></i> Sil</a>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <!-- Müşteri Kartı -->
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-header bg-white">
+                <h5 class="mb-0 fw-bold"><i class="bi bi-person text-primary"></i> Profil Bilgileri</h5>
+            </div>
+            <div class="card-body">
+                <div class="detail-item">
+                    <span class="detail-label d-block">Adı Soyadı</span>
+                    <span class="detail-val">@Model.FirstName @Model.LastName</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label d-block">Kimlik / Pasaport No</span>
+                    <span class="detail-val"><code>@Model.NationalId</code></span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label d-block">Telefon</span>
+                    <span class="detail-val"><i class="bi bi-telephone"></i> @Model.Phone</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label d-block">E-posta</span>
+                    <span class="detail-val"><i class="bi bi-envelope"></i> @Model.Email</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label d-block">Adres</span>
+                    <span class="detail-val">@(string.IsNullOrEmpty(Model.Address) ? "Adres belirtilmemiş." : Model.Address)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Müşterinin Rezervasyonları -->
+    <div class="col-md-8">
+        <div class="card h-100">
+            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 fw-bold"><i class="bi bi-calendar-check text-warning"></i> Rezervasyon Geçmişi</h5>
+                <span class="badge bg-primary">@Model.Reservations.Count Rezervasyon</span>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0" style="font-size: 0.9rem;">
+                        <thead>
+                            <tr>
+                                <th>Otel & Oda</th>
+                                <th>Giriş / Çıkış</th>
+                                <th>Toplam Tutar</th>
+                                <th>Durum</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (!Model.Reservations.Any()) {
+                                <tr>
+                                    <td colspan="4" class="text-center text-muted py-4">Bu müşteriye ait henüz rezervasyon bulunmamaktadır.</td>
+                                </tr>
+                            } else {
+                                @foreach(var res in Model.Reservations) {
+                                    <tr>
+                                        <td>
+                                            <div class="fw-bold">@res.Room?.Hotel?.Name</div>
+                                            <small class="text-muted">Oda @res.Room?.RoomNumber (@res.Room?.RoomType)</small>
+                                        </td>
+                                        <td>
+                                            <div>Giriş: @res.CheckInDate.ToShortDateString()</div>
+                                            <div>Çıkış: @res.CheckOutDate.ToShortDateString()</div>
+                                        </td>
+                                        <td class="fw-bold text-dark">@res.TotalPrice.ToString("N2") TL</td>
+                                        <td>
+                                            @if (res.Status == HotelERP.Models.ReservationStatus.Confirmed) {
+                                                <span class="badge bg-success">Onaylandı</span>
+                                            } else if (res.Status == HotelERP.Models.ReservationStatus.Pending) {
+                                                <span class="badge bg-warning text-dark">Beklemede</span>
+                                            } else if (res.Status == HotelERP.Models.ReservationStatus.Cancelled) {
+                                                <span class="badge bg-danger">İptal Edildi</span>
+                                            } else {
+                                                <span class="badge bg-info text-dark">Tamamlandı</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

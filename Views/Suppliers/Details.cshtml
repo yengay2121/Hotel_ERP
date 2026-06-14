@@ -1,0 +1,29 @@
+@model HotelERP.Models.Supplier
+@{ ViewData["Title"] = "Details - Supplier"; }
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0 fw-bold">Supplier Detayları</h5>
+            </div>
+            <div class="card-body">
+                <dl class="row mb-0">
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.CompanyName)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.CompanyName)</dd>
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.ContactPerson)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.ContactPerson)</dd>
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Email)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Email)</dd>
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Phone)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Phone)</dd>
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Address)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Address)</dd>
+                </dl>
+            </div>
+            <div class="card-footer bg-white py-3">
+                <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Düzenle</a>
+                <a asp-action="Index" class="btn btn-light ms-2">Listeye Dön</a>
+            </div>
+        </div>
+    </div>
+</div>

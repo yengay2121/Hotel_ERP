@@ -1,0 +1,87 @@
+@{ ViewData["Title"] = "Database Administration"; }
+
+<div class="row mb-4">
+    <div class="col">
+        <h1 class="h2 fw-bold text-dark"><i class="bi bi-database-fill-gear text-danger"></i> Database Administration</h1>
+        <p class="text-muted">Manage all ERP system tables and raw data records directly.</p>
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- Core Operational Models -->
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0 border-top border-4 border-primary">
+            <div class="card-body">
+                <h5 class="card-title fw-bold">Core Modules</h5>
+                <ul class="list-group list-group-flush mt-3">
+                    <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
+                        <a asp-controller="Hotels" asp-action="Index" class="text-decoration-none text-dark fw-medium">Hotels</a>
+                        <i class="bi bi-building text-primary"></i>
+                    </li>
+                    <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
+                        <a asp-controller="Rooms" asp-action="Index" class="text-decoration-none text-dark fw-medium">Rooms</a>
+                        <i class="bi bi-door-open text-primary"></i>
+                    </li>
+                    <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
+                        <a asp-controller="Customers" asp-action="Index" class="text-decoration-none text-dark fw-medium">Customers</a>
+                        <i class="bi bi-people text-primary"></i>
+                    </li>
+                    <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
+                        <a asp-controller="Reservations" asp-action="Index" class="text-decoration-none text-dark fw-medium">Reservations</a>
+                        <i class="bi bi-calendar-check text-primary"></i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ERP & HR Models -->
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0 border-top border-4 border-success">
+            <div class="card-body">
+                <h5 class="card-title fw-bold">HR & Inventory</h5>
+                <ul class="list-group list-group-flush mt-3">
+                    <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
+                        <a asp-controller="Departments" asp-action="Index" class="text-decoration-none text-dark fw-medium">Departments</a>
+                        <i class="bi bi-diagram-3 text-success"></i>
+                    </li>
+                    <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
+                        <a asp-controller="Employees" asp-action="Index" class="text-decoration-none text-dark fw-medium">Employees</a>
+                        <i class="bi bi-person-badge text-success"></i>
+                    </li>
+                    <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
+                        <a asp-controller="InventoryItems" asp-action="Index" class="text-decoration-none text-dark fw-medium">Inventory Items</a>
+                        <i class="bi bi-box-seam text-success"></i>
+                    </li>
+                    <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
+                        <a asp-controller="Suppliers" asp-action="Index" class="text-decoration-none text-dark fw-medium">Suppliers</a>
+                        <i class="bi bi-truck text-success"></i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Finance Models -->
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0 border-top border-4 border-warning">
+            <div class="card-body">
+                <h5 class="card-title fw-bold">Finance & Purchasing</h5>
+                <ul class="list-group list-group-flush mt-3">
+                    <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
+                        <a asp-controller="PurchaseOrders" asp-action="Index" class="text-decoration-none text-dark fw-medium">Purchase Orders</a>
+                        <i class="bi bi-cart3 text-warning"></i>
+                    </li>
+                    <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
+                        <a asp-controller="Payments" asp-action="Index" class="text-decoration-none text-dark fw-medium">Payments</a>
+                        <i class="bi bi-cash-stack text-warning"></i>
+                    </li>
+                    <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
+                        <a asp-controller="Expenses" asp-action="Index" class="text-decoration-none text-dark fw-medium">Expenses</a>
+                        <i class="bi bi-graph-down-arrow text-warning"></i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

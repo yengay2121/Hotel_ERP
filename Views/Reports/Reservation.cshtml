@@ -1,0 +1,37 @@
+@model IEnumerable<HotelERP.Models.Reservation>
+@{ ViewData["Title"] = "Rezervasyon Raporu"; }
+<h3 class="fw-bold mb-4">Rezervasyon Raporu</h3>
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Müşteri</th>
+                        <th>Otel</th>
+                        <th>Oda Numarası</th>
+                        <th>Giriş - Çıkış</th>
+                        <th>Toplam Tutar</th>
+                        <th>Durum</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model) {
+                        <tr>
+                            <td>@item.Customer.FullName</td>
+                            <td>@item.Room.Hotel.Name</td>
+                            <td>@item.Room.RoomNumber</td>
+                            <td>@item.CheckInDate.ToString("dd.MM.yyyy") - @item.CheckOutDate.ToString("dd.MM.yyyy")</td>
+                            <td>₺@item.TotalPrice.ToString("N2")</td>
+                            <td>
+                                @if (item.Status == HotelERP.Models.ReservationStatus.Confirmed) { <span class="badge bg-success">Onaylandı</span> }
+                                else if (item.Status == HotelERP.Models.ReservationStatus.Pending) { <span class="badge bg-warning text-dark">Bekliyor</span> }
+                                else { <span class="badge bg-secondary">@item.Status</span> }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,155 @@
+@model HotelERP.Models.Reservation
+@{
+    ViewData["Title"] = "Rezervasyon Detayları";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <a asp-action="Index" class="btn btn-sm btn-outline-secondary mb-3"><i class="bi bi-arrow-left"></i> Rezervasyon Listesine Dön</a>
+        <h1 class="h3 fw-bold text-dark mb-1">Rezervasyon #@Model.Id</h1>
+        <p class="text-muted mb-0">Müşteri ve Oda Rezervasyon Detayları</p>
+    </div>
+    <div class="d-flex gap-2">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning text-white fw-semibold"><i class="bi bi-pencil"></i> Düzenle</a>
+        <a asp-controller="Payments" asp-action="Create" class="btn btn-success fw-semibold"><i class="bi bi-cash"></i> Ödeme Ekle</a>
+        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger"><i class="bi bi-trash"></i> Sil</a>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <!-- Rezervasyon & Müşteri Bilgileri -->
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header bg-white">
+                <h5 class="mb-0 fw-bold"><i class="bi bi-calendar-check text-primary"></i> Rezervasyon Özet</h5>
+            </div>
+            <div class="card-body">
+                <div class="detail-item">
+                    <span class="detail-label d-block">Müşteri Adı Soyadı</span>
+                    <span class="detail-val">
+                        <a asp-controller="Customers" asp-action="Details" asp-route-id="@Model.CustomerId" class="text-decoration-none">
+                            @Model.Customer?.FirstName @Model.Customer?.LastName
+                        </a>
+                    </span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label d-block">Oda Bilgisi</span>
+                    <span class="detail-val">
+                        @Model.Room?.Hotel?.Name - Oda @Model.Room?.RoomNumber (@Model.Room?.RoomType)
+                    </span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label d-block">Giriş / Çıkış Tarihleri</span>
+                    <span class="detail-val">@Model.CheckInDate.ToLongDateString() - @Model.CheckOutDate.ToLongDateString()</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label d-block">Rezervasyon Durumu</span>
+                    <span class="detail-val">
+                        @if (Model.Status == HotelERP.Models.ReservationStatus.Confirmed) {
+                            <span class="badge bg-success">Onaylandı</span>
+                        } else if (Model.Status == HotelERP.Models.ReservationStatus.Pending) {
+                            <span class="badge bg-warning text-dark">Beklemede</span>
+                        } else if (Model.Status == HotelERP.Models.ReservationStatus.Cancelled) {
+                            <span class="badge bg-danger">İptal Edildi</span>
+                        } else {
+                            <span class="badge bg-info text-dark">Tamamlandı</span>
+                        }
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gelir ve Finans Bilgileri -->
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header bg-white">
+                <h5 class="mb-0 fw-bold"><i class="bi bi-cash-stack text-success"></i> Finansal Özet</h5>
+            </div>
+            <div class="card-body">
+                <div class="detail-item">
+                    <span class="detail-label d-block">Gecelik Oda Fiyatı</span>
+                    <span class="detail-val text-dark">@Model.Room?.PricePerNight.ToString("N2") TL</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label d-block">Konaklama Gün Sayısı</span>
+                    <span class="detail-val">
+                        @{
+                            var days = (Model.CheckOutDate - Model.CheckInDate).Days;
+                            if (days <= 0) days = 1;
+                        }
+                        @days Gün
+                    </span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label d-block">Toplam Tutar</span>
+                    <span class="detail-val fw-bold text-dark fs-5">@Model.TotalPrice.ToString("N2") TL</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label d-block">Toplam Ödenen</span>
+                    <span class="detail-val fw-bold text-success fs-5">
+                        @{
+                            var paidAmount = Model.Payments.Where(p => p.Status == HotelERP.Models.PaymentStatus.Paid).Sum(p => p.Amount);
+                            var remaining = Model.TotalPrice - paidAmount;
+                        }
+                        @paidAmount.ToString("N2") TL
+                    </span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label d-block">Kalan Bakiye</span>
+                    <span class="detail-val fw-bold @(remaining > 0 ? "text-danger" : "text-success") fs-5">
+                        @remaining.ToString("N2") TL
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Ödeme Kayıtları -->
+<div class="card">
+    <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+        <h5 class="mb-0 fw-bold"><i class="bi bi-receipt text-success"></i> Rezervasyon Ödemeleri</h5>
+        <span class="badge bg-success">@Model.Payments.Count Ödeme Kaydı</span>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0" style="font-size: 0.9rem;">
+                <thead>
+                    <tr>
+                        <th>Ödeme ID</th>
+                        <th>Ödeme Tarihi</th>
+                        <th>Yöntem</th>
+                        <th>Ödeme Tutarı</th>
+                        <th>Durum</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Payments.Any()) {
+                        <tr>
+                            <td colspan="5" class="text-center text-muted py-4">Bu rezervasyona ait henüz ödeme kaydı bulunmamaktadır.</td>
+                        </tr>
+                    } else {
+                        @foreach(var payment in Model.Payments) {
+                            <tr>
+                                <td class="fw-bold">#@payment.Id</td>
+                                <td>@payment.PaymentDate.ToShortDateString()</td>
+                                <td>@payment.PaymentMethod</td>
+                                <td class="fw-bold">@payment.Amount.ToString("N2") TL</td>
+                                <td>
+                                    @if(payment.Status == HotelERP.Models.PaymentStatus.Paid) {
+                                        <span class="badge bg-success">Ödendi</span>
+                                    } else if(payment.Status == HotelERP.Models.PaymentStatus.Pending) {
+                                        <span class="badge bg-warning text-dark">Beklemede</span>
+                                    } else {
+                                        <span class="badge bg-danger">İade Edildi</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

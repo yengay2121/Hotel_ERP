@@ -1,0 +1,68 @@
+@model IEnumerable<HotelERP.Models.Payment>
+@{
+    ViewData["Title"] = "Ödemeler & Gelir Kayıtları";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h3 fw-bold text-dark mb-1"><i class="bi bi-cash-stack text-warning"></i> Gelir ve Ödeme Yönetimi</h1>
+        <p class="text-muted mb-0">Rezervasyonlardan elde edilen gelirleri ve ödeme kayıtlarını takip edin.</p>
+    </div>
+    <a asp-action="Create" class="btn btn-primary d-flex align-items-center gap-2">
+        <i class="bi bi-plus-lg"></i> Ödeme Girişi Yap
+    </a>
+</div>
+
+<div class="card">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>Ödeme ID</th>
+                        <th>Rezervasyon & Müşteri</th>
+                        <th>Ödeme Tarihi</th>
+                        <th>Ödeme Yöntemi</th>
+                        <th>Tutar</th>
+                        <th>Durum</th>
+                        <th class="text-end">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model) {
+                        <tr>
+                            <td class="fw-bold">#@item.Id</td>
+                            <td>
+                                <div>
+                                    <a asp-controller="Reservations" asp-action="Details" asp-route-id="@item.ReservationId" class="text-decoration-none fw-semibold">
+                                        Rezervasyon #@item.ReservationId
+                                    </a>
+                                </div>
+                                <small class="text-muted">Müşteri: @item.Reservation?.Customer?.FirstName @item.Reservation?.Customer?.LastName</small>
+                            </td>
+                            <td>@item.PaymentDate.ToShortDateString()</td>
+                            <td>@item.PaymentMethod</td>
+                            <td class="fw-bold text-success">@item.Amount.ToString("N2") TL</td>
+                            <td>
+                                @if (item.Status == HotelERP.Models.PaymentStatus.Paid) {
+                                    <span class="badge bg-success">Ödendi</span>
+                                } else if (item.Status == HotelERP.Models.PaymentStatus.Pending) {
+                                    <span class="badge bg-warning text-dark">Beklemede</span>
+                                } else {
+                                    <span class="badge bg-danger">İade Edildi</span>
+                                }
+                            </td>
+                            <td class="text-end">
+                                <div class="btn-group btn-group-sm">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-secondary" title="Düzenle"><i class="bi bi-pencil"></i></a>
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info text-dark" title="Detaylar"><i class="bi bi-eye"></i></a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger" title="Sil"><i class="bi bi-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+@model HotelERP.Models.Employee
+@{
+    ViewData["Title"] = "Personel Detayları";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <a asp-action="Index" class="btn btn-sm btn-outline-secondary mb-3"><i class="bi bi-arrow-left"></i> Personel Listesine Dön</a>
+        <h1 class="h3 fw-bold text-dark mb-1">@Model.FirstName @Model.LastName</h1>
+        <p class="text-muted mb-0">Personel Görev ve Ücret Detayları</p>
+    </div>
+    <div class="d-flex gap-2">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning text-white fw-semibold"><i class="bi bi-pencil"></i> Düzenle</a>
+        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger"><i class="bi bi-trash"></i> Sil</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card">
+            <div class="card-header bg-white">
+                <h5 class="mb-0 fw-bold"><i class="bi bi-person-badge text-primary"></i> Personel Bilgileri</h5>
+            </div>
+            <div class="card-body">
+                <div class="detail-item">
+                    <span class="detail-label d-block">Adı Soyadı</span>
+                    <span class="detail-val">@Model.FirstName @Model.LastName</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label d-block">Çalıştığı Otel</span>
+                    <span class="detail-val">@Model.Hotel?.Name</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label d-block">Pozisyon</span>
+                    <span class="detail-val"><span class="badge bg-secondary">@Model.Position</span></span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label d-block">Aylık Net Maaş</span>
+                    <span class="detail-val fw-bold text-success">@Model.Salary.ToString("N2") TL</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label d-block">İşe Giriş Tarihi</span>
+                    <span class="detail-val">@Model.HireDate.ToLongDateString()</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label d-block">Telefon</span>
+                    <span class="detail-val"><i class="bi bi-telephone"></i> @Model.Phone</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label d-block">E-posta</span>
+                    <span class="detail-val"><i class="bi bi-envelope"></i> @Model.Email</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

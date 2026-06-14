@@ -1,0 +1,48 @@
+@model HotelERP.Models.Room
+@{
+    ViewData["Title"] = "Odayı Sil";
+}
+
+<div class="row mb-4">
+    <div class="col-md-6 mx-auto">
+        <a asp-action="Index" class="btn btn-sm btn-outline-secondary mb-3"><i class="bi bi-arrow-left"></i> Geri Dön</a>
+        <h1 class="h3 fw-bold text-dark"><i class="bi bi-exclamation-triangle-fill text-danger"></i> Odayı Sil</h1>
+        <p class="text-muted">Aşağıdaki odayı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card border border-danger">
+            <div class="card-body p-4">
+                <h4 class="fw-bold text-danger mb-3">Oda @Model.RoomNumber</h4>
+                
+                <div class="detail-item">
+                    <span class="detail-label d-block">Otel</span>
+                    <span class="detail-val">@Model.Hotel?.Name</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label d-block">Oda Tipi</span>
+                    <span class="detail-val">@Model.RoomType</span>
+                </div>
+                <div class="detail-item mb-4">
+                    <span class="detail-label d-block">Gecelik Ücret</span>
+                    <span class="detail-val">@Model.PricePerNight.ToString("N2") TL</span>
+                </div>
+
+                <div class="alert alert-warning d-flex align-items-center gap-2 mb-4" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill fs-5"></i>
+                    <div>
+                        <strong>Dikkat:</strong> Odanın silinmesi, bu odaya bağlı tüm geçmiş rezervasyon verilerini etkiler. Eğer bu oda üzerinde aktif rezervasyonlar varsa veritabanı kısıtlamaları (Restrict) sebebiyle silme işlemi başarısız olacaktır.
+                    </div>
+                </div>
+
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+                    <button type="submit" class="btn btn-danger px-4 fw-semibold">Evet, Sil</button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">İptal</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
